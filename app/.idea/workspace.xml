@@ -1,7 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="7164d318-e4ce-43a3-9bb7-c3a90732b0d3" name="Default Changelist" comment="" />
+    <list default="true" id="7164d318-e4ce-43a3-9bb7-c3a90732b0d3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/auth.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/models.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,13 +39,20 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectId" id="26NAHAN1iuKVOYHl2OZjCHNy93V" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
@@ -30,9 +62,9 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\Users\Kevin\Documents\SE2\app\venv\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
@@ -56,27 +88,51 @@
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="860" y="399" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1647259018269">
+    <state x="542" y="231" width="1089" height="785" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1647349713290">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
-    <state x="860" y="399" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2194.1194/-1920.1080.1920.1040@0.0.2194.1194" timestamp="1647259018269" />
-    <state width="2173" height="333" key="GridCell.Tab.0.bottom" timestamp="1647281220878">
+    <state x="542" y="231" width="1089" height="785" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2194.1194/-1920.1080.1920.1040@0.0.2194.1194" timestamp="1647349713290" />
+    <state x="860" y="399" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1647363914248">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
-    <state width="2173" height="333" key="GridCell.Tab.0.bottom/0.0.2194.1194/-1920.1080.1920.1040@0.0.2194.1194" timestamp="1647281220878" />
-    <state width="2173" height="333" key="GridCell.Tab.0.center" timestamp="1647281220878">
+    <state x="860" y="399" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2194.1194/-1920.1080.1920.1040@0.0.2194.1194" timestamp="1647363914248" />
+    <state x="965" y="376" key="EnvironmentVariablesDialog" timestamp="1647349111229">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
-    <state width="2173" height="333" key="GridCell.Tab.0.center/0.0.2194.1194/-1920.1080.1920.1040@0.0.2194.1194" timestamp="1647281220878" />
-    <state width="2173" height="333" key="GridCell.Tab.0.left" timestamp="1647281220878">
+    <state x="965" y="376" key="EnvironmentVariablesDialog/0.0.2194.1194/-1920.1080.1920.1040@0.0.2194.1194" timestamp="1647349111229" />
+    <state x="877" y="352" key="FileChooserDialogImpl" timestamp="1647349260863">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
-    <state width="2173" height="333" key="GridCell.Tab.0.left/0.0.2194.1194/-1920.1080.1920.1040@0.0.2194.1194" timestamp="1647281220878" />
-    <state width="2173" height="333" key="GridCell.Tab.0.right" timestamp="1647281220878">
+    <state x="877" y="352" key="FileChooserDialogImpl/0.0.2194.1194/-1920.1080.1920.1040@0.0.2194.1194" timestamp="1647349260863" />
+    <state width="2173" height="333" key="GridCell.Tab.0.bottom" timestamp="1647377331054">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
-    <state width="2173" height="333" key="GridCell.Tab.0.right/0.0.2194.1194/-1920.1080.1920.1040@0.0.2194.1194" timestamp="1647281220878" />
+    <state width="2173" height="333" key="GridCell.Tab.0.bottom/0.0.2194.1194/-1920.1080.1920.1040@0.0.2194.1194" timestamp="1647377331054" />
+    <state width="2173" height="333" key="GridCell.Tab.0.center" timestamp="1647377331054">
+      <screen x="0" y="0" width="2194" height="1194" />
+    </state>
+    <state width="2173" height="333" key="GridCell.Tab.0.center/0.0.2194.1194/-1920.1080.1920.1040@0.0.2194.1194" timestamp="1647377331054" />
+    <state width="2173" height="333" key="GridCell.Tab.0.left" timestamp="1647377331054">
+      <screen x="0" y="0" width="2194" height="1194" />
+    </state>
+    <state width="2173" height="333" key="GridCell.Tab.0.left/0.0.2194.1194/-1920.1080.1920.1040@0.0.2194.1194" timestamp="1647377331054" />
+    <state width="2173" height="333" key="GridCell.Tab.0.right" timestamp="1647377331054">
+      <screen x="0" y="0" width="2194" height="1194" />
+    </state>
+    <state width="2173" height="333" key="GridCell.Tab.0.right/0.0.2194.1194/-1920.1080.1920.1040@0.0.2194.1194" timestamp="1647377331054" />
     <state width="2173" height="409" key="GridCell.Tab.1.bottom" timestamp="1647281219409">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
@@ -93,5 +149,9 @@
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
     <state width="2173" height="409" key="GridCell.Tab.1.right/0.0.2194.1194/-1920.1080.1920.1040@0.0.2194.1194" timestamp="1647281219409" />
+    <state x="606" y="242" key="SettingsEditor" timestamp="1647349685566">
+      <screen x="0" y="0" width="2194" height="1194" />
+    </state>
+    <state x="606" y="242" key="SettingsEditor/0.0.2194.1194/-1920.1080.1920.1040@0.0.2194.1194" timestamp="1647349685566" />
   </component>
 </project>
