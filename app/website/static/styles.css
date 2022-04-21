@@ -1,0 +1,45 @@
+.list-group-item {
+    background-color: #f7f7f7;
+}
+
+.list_header {
+    margin-left: 50px;
+    color: #440399;
+    font-family: 'Ubuntu', sans-serif;
+
+}
+
+.custom-control-label-checked {
+    text-decoration-line: line-through;
+    text-color: #848a91;
+}
+
+.custom-control-label {
+    color: #8a30ff;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.delete_item {
+    position: relative;
+    float: right;
+}
+
+.custom-form-control {
+    background-color: transparent;
+    border: 10px;
+    border-bottom: 1px solid #ced4da;
+    border-radius: 4px;
+    outline: 1px;
+    box-shadow: none;
+}
+
+.custom-textfield {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.custom-form-control:hover {
+
+}

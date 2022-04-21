@@ -1,0 +1,51 @@
+{% extends "base.html" %}{% block title %}Changed{% endblock %}
+
+{% block content %}
+<h1 align="left" class="list_header">Items to shop</h1>
+<ul class="list-group list-group-flush" id="items">
+    {% for item in user.items %}
+        {% if item.state == False %}
+            <li class="list-group-item">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="checkbox_{{ item.id }}" onclick="toggleItemState({{ item.id }});">
+                        <label class="custom-control-label" for="checkbox_{{ item.id }}">
+                            {{item.title}}
+                        </label>
+                        <button type="button" class="close delete_item" onclick="deleteItem({{ item.id }})">
+                                <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+            </li>
+        {% endif %}
+    {% endfor %}
+    <hr style="border-width: 5px; border-color: #ff0000;">
+    {% for item in user.items %}
+        {% if item.state == True %}
+            <li class="list-group-item">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="checkbox_checked_{{ item.id }}" onclick="toggleItemState({{ item.id }});" checked>
+                        <label class="custom-control-label custom-control-label-checked" for="checkbox_checked_{{ item.id }}">
+                            {{item.title}}
+                        </label>
+                        <button type="button" class="close delete_item" onclick="deleteItem({{ item.id }})">
+                                <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>
+<form method="POST">
+    <input type="text"
+           name="item_textfield"
+           id="item_textfield"
+           class="form-control custom-form-control">
+    <label for="item_textfield" class="font-weight-light custom-textfield">
+        Add an item...
+    </label>
+    <br />
+    <div align="center">
+        <button type="submit" class="btn btn-primary">Add Item</button>
+    </div>
+</form>
+{% endblock %}
