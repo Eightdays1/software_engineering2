@@ -8,15 +8,23 @@ class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     data = db.Column(db.String(1000))
     date = db.Column(db.DateTime(timezone=True), default=func.now())
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    group_id = db.Column(db.Integer, db.ForeignKey('group.id'))
 
 
 class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    group_id = db.Column(db.Integer, db.ForeignKey('group.id'))
     title = db.Column(db.String(100))
     date = db.Column(db.DateTime(timezone=True), default=func.now())
     state = db.Column(db.Boolean)
+
+
+class Group(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    users = db.relationship('User')
+    notes = db.relationship('Note')
+    items = db.relationship('Item')
 
 
 class User(db.Model, UserMixin):
@@ -24,7 +32,6 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150))
-    items = db.relationship('Item')
-    notes = db.relationship('Note')
+    group_id = db.Column(db.Integer, db.ForeignKey('group.id'))
 
 

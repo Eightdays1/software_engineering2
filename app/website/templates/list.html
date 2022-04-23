@@ -1,9 +1,32 @@
 {% extends "base.html" %}{% block title %}Changed{% endblock %}
 
 {% block content %}
-<h1 align="left" class="list_header">Items to shop</h1>
+<div class="d-flex flex-row">
+        <div class="p-2 page-icon">
+            <img src="/static/images/list-check-solid.svg"
+                 alt="shoppinglist"
+                 width="50"
+                 height="50"/>
+        </div>
+        <div class="p-2">
+            <h1 class="list_header">Items to shop</h1>
+        </div>
+</div>
+<br />
+<form method="POST">
+    <div class="input-group mb-3 input-group-custom">
+        <input type="text"
+               name="item_textfield"
+               id="item_textfield"
+               class="form-control custom-form-control"
+               placeholder="Add an item..." autofocus>
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit">Add Item</button>
+        </div>
+    </div>
+</form>
 <ul class="list-group list-group-flush" id="items">
-    {% for item in user.items %}
+    {% for item in group.items %}
         {% if item.state == False %}
             <li class="list-group-item">
                 <div class="custom-control custom-checkbox">
@@ -18,13 +41,15 @@
             </li>
         {% endif %}
     {% endfor %}
-    <hr style="border-width: 5px; border-color: #ff0000;">
-    {% for item in user.items %}
+</ul>
+<hr style="width: 50%;">
+<ul class="list-group list-group-flush" id="items_checked">
+    {% for item in group.items %}
         {% if item.state == True %}
             <li class="list-group-item">
                 <div class="custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input" id="checkbox_checked_{{ item.id }}" onclick="toggleItemState({{ item.id }});" checked>
-                        <label class="custom-control-label custom-control-label-checked" for="checkbox_checked_{{ item.id }}">
+                        <label class="custom-control-label custom-control-label-checked disabled" for="checkbox_checked_{{ item.id }}">
                             {{item.title}}
                         </label>
                         <button type="button" class="close delete_item" onclick="deleteItem({{ item.id }})">
@@ -35,17 +60,4 @@
         {% endif %}
     {% endfor %}
 </ul>
-<form method="POST">
-    <input type="text"
-           name="item_textfield"
-           id="item_textfield"
-           class="form-control custom-form-control">
-    <label for="item_textfield" class="font-weight-light custom-textfield">
-        Add an item...
-    </label>
-    <br />
-    <div align="center">
-        <button type="submit" class="btn btn-primary">Add Item</button>
-    </div>
-</form>
 {% endblock %}

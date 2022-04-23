@@ -1,3 +1,6 @@
+setTimeout(function () {
+    $('.alert').alert('close');
+}, 4000);
 function deleteNote(noteId) {
     fetch('/delete-note', {
         method: 'POST',
@@ -24,3 +27,10 @@ function toggleItemState(item_id) {
         window.location.href = "/list";
     });
 }
+
+function editGroupName() {
+  document.getElementById("group-name").removeAttribute('disabled');
+  document.getElementById("group-name").removeAttribute('readonly');
+}
+
+document.getElementById("edit-button").addEventListener("click", editGroupName);
