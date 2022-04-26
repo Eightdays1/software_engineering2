@@ -1,0 +1,103 @@
+{% extends "base.html" %}{% block title %}Calendar{% endblock %}
+
+
+
+
+{% block content %}
+<div id='calendar'></div>
+<script>
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        timeZone: 'Europe/Berlin',
+        themeSystem: "bootstrap",
+        weekNumbers: true,
+        dayMaxEvents: true,
+        customButtons: {
+            add_event: {
+                text: 'Add event',
+                click: function() {
+                    var myModal = new bootstrap.Modal(document.getElementById('add_event'), {
+                      keyboard: false
+                    });
+                    myModal.show();
+                }
+            }
+        },
+        headerToolbar: {
+          left: 'prev,next today add_event',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        events: [
+            {% for event in events %}
+                {
+                    id: '{{ event.id }}',
+                    title: '{{event.title}}',
+                    start: '{{event.start}}',
+                    end: '{{event.end}}',
+                    color: '{{event.color}}'
+                },
+            {% endfor %}
+          ],
+        eventTimeFormat: {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
+        },
+        eventClick: function (event) {
+            if(confirm("Are you sure you want to delete it?")){
+                fetch('/delete-event', {
+                    method: 'POST',
+                    body: JSON.stringify({ event_id: event.id}),
+                }).then((_res) => {
+                    window.location.href = "/calender";
+                });
+            }
+        }
+    });
+    calendar.render();
+</script>
+{% endblock %}
+
+{% block outside_body %}
+<div class="modal fade" id="add_event" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add event</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="addEventForm">
+           <div class="input-group mb-3">
+             <label  class="input-group-text" id="title_label">Title</label >
+             <input type="text" class="form-control" id="title_input" placeholder="Title">
+          </div>
+          <div class="input-group mb-3">
+            <label class="input-group-text" id="user_label">User</label >
+              <select class="form-select" id="user_input">
+                <option selected>None</option>
+                {% for user in group.users %}
+                  <option>{{user.first_name}}</option>
+                {% endfor %}
+              </select>
+          </div>
+          <div class="input-group mb-3" id="datepicker-box">
+            <label class="input-group-text" id="basic-addon2">Date</label >
+            <div class="input-daterange input-group" id="datepicker">
+              <input type="text" class="input-sm form-control" name="start" />
+              <span class="input-group-addon">to</span>
+              <input type="text" class="input-sm form-control" name="end" />
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

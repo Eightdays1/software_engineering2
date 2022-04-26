@@ -1,44 +1,83 @@
-{% extends "base.html" %}{% block title %}Changed{% endblock %}
+{% extends "base.html" %}{% block title %}Household{% endblock %}
 
 {% block content %}
 <div class="d-flex flex-row">
         <div class="p-2 page-icon">
             <img src="/static/images/people-fill.svg"
-                 alt="shoppinglist"
+                 class="header-logo"
+                 alt="household"
                  width="50"
                  height="50"/>
         </div>
         <div class="p-2">
-            <h1 class="list_header">Configure Household</h1>
+            <h1 class="header-text">Configure Household</h1>
         </div>
 </div>
 <br />
-<div class="d-flex flex-row flex-row-custom">
-    <div class="p-2" >
-        <button type="button" class="btn" id="edit-button" name="edit-button"
-                style="">
-            <svg  xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-              <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-              <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-            </svg>
-        </button>
+{% if current_user.group_id != None %}
+    <div class="d-flex flex-row flex-row-custom">
+        <div class="p-0" style="display: flex; align-items: flex-end;">
+            <button type="button" class="btn btn-custom" id="edit-button" name="edit-button" onclick="editGroupName()">
+                <svg  xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="p-2">
+            <form method="POST">
+                <input class="form-control-plaintext group-name-text-input"
+                       id="group-name"
+                       name="group-name"
+                       disabled readonly
+                       type="text"
+                       onfocus=" let value = this.value; this.value = null; this.value=value"
+                       pattern="[A-Za-z0-9ÄÖÜäöüß -]{2,30}"
+                       value="{{group.name}}">
+            </form>
+        </div>
     </div>
-    <div class="p-2">
-        <form method="POST">
-            <input class="form-control-plaintext group-name-text-input"
-                   id="group-name"
-                   name="group-name"
-                   disabled readonly
-                   type="text"
-                   pattern="[A-Za-z0-9ÄÖÜäöüß -]{2,30}"
-                   value="{{group.name}}">
-        </form>
-    </div>
-</div>
 
-<ul class="list-group">
-    {% for user in group.users %}
-        <li class="list-group-item">{{user.first_name}}</li>
-    {% endfor %}
-</ul>
+    <ul class="list-group">
+        {% for user in group.users %}
+            <li class="list-group-item {{ 'current-user-highlighting' if current_user.first_name == user.first_name else '' }}">
+                {{user.first_name}}
+                {{' (me)'if current_user.first_name == user.first_name else ''}}
+            </li>
+        {% endfor %}
+             <li class="list-group-item">
+                 <form method="POST">
+                     <input class="form-control-plaintext form-control-add-user"
+                            id="add-user-email"
+                            name="add-user-email"
+                            type="text"
+                            placeholder="Add user by email"
+                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                 </form>
+            </li>
+    </ul>
+    <br/>
+    <button type="button" class="btn btn-danger" onclick="leaveGroup({{group.id}})">Leave household</button>
+{% else %}
+    <div class="d-flex flex-row flex-row-custom">
+        <div class="p-0" style="display: flex; align-items: flex-end;">
+            <button type="button" class="btn btn-custom-add" id="add-button" name="add-button" onclick="addGroupName()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                  <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="p-2">
+            <form method="POST">
+                <input class="form-control-plaintext group-name-text-input"
+                       id="new-group-name"
+                       name="new-group-name"
+                       type="text"
+                       placeholder="Add new group"
+                       pattern="[A-Za-z0-9ÄÖÜäöüß -]{2,30}">
+            </form>
+        </div>
+    </div>
+{% endif %}
 {% endblock %}

@@ -1,0 +1,154 @@
+{% extends "base.html" %}{% block title %}Profile{% endblock %}
+{% set active_page = "dashboard" %}
+
+
+{% block content %}
+<div class="d-flex flex-row">
+        <div class="p-2 page-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"
+                 class="bi bi-person-circle header-logo" viewBox="0 0 16 16">
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+              <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+            </svg>
+        </div>
+        <div class="p-2">
+            <h1 class="header-text">Profile</h1>
+        </div>
+</div>
+<br />
+<h3>Personal information</h3>
+<br />
+<div class="container" style="max-width: 60em;">
+    <div class="row align-items-center">
+        <div class="col-1">
+            Email
+        </div>
+        <div class="col-md-auto">
+            <button type="button"
+                    class="btn btn-custom"
+                    id="edit-email-button"
+                    name="edit-email-button"
+                    onclick="editEmail()">
+                <svg  xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="col-6">
+            <form method="POST">
+                <input type="email"
+                       class="form-control profile-form-custom"
+                       disabled
+                       id="email_address"
+                       name="email_address"
+                       value="{{current_user.email}}"
+                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+            </form>
+        </div>
+    </div>
+    <div class="row align-items-center profile-form">
+         <div class="col-1">
+            Name
+        </div>
+        <div class="col-md-auto">
+            <button type="button"
+                    class="btn btn-custom"
+                    id="edit-name-button"
+                    name="edit-name-button"
+                    onclick="editName()">
+                <svg  xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="col-6">
+            <form method="POST">
+                <input type="text"
+                       class="form-control profile-form-custom"
+                       disabled
+                       id="first_name"
+                       name="first_name"
+                       value="{{current_user.first_name}}">
+            </form>
+        </div>
+    </div>
+</div>
+<br/>
+<br/>
+<br/>
+<h3>Change password</h3>
+<br/>
+<form method="POST">
+    <div class="container" style="max-width: 60em;">
+        <form method="POST">
+            <div class="row align-items-center">
+                <div class="col-2">
+                    Password
+                </div>
+                <div class="col-6">
+                    <input type="password"
+                           class="form-control profile-form-custom"
+                           id="old_password1"
+                           name="old_password1"
+                           placeholder="Enter old password">
+                </div>
+            </div>
+            <div class="row align-items-center profile-form">
+                 <div class="col-2">
+                    Confirm password
+                </div>
+                <div class="col-6">
+                    <input type="password"
+                           class="form-control profile-form-custom"
+                           id="old_password2"
+                           name="old_password2"
+                           placeholder="Confirm old password">
+                </div>
+            </div>
+            <div class="row align-items-center profile-form">
+                 <div class="col-2">
+                     New password
+                </div>
+                <div class="col-6">
+                    <input type="password"
+                           class="form-control profile-form-custom"
+                           id="new_password"
+                           name="new_password"
+                           placeholder="Enter new password">
+                </div>
+            </div>
+        </form>
+        <br/>
+        <button type="submit" class="btn btn-primary">Change password</button>
+    </div>
+</form>
+<br/>
+<br/>
+<br/>
+<br/>
+<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirm_deleteUser">Delete user</button>
+{% endblock %}
+
+{% block outside_body %}
+<div class="modal fade" id="confirm_deleteUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete your account?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" onclick="deleteUser({{current_user.id}})">Delete user</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+

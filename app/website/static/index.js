@@ -1,36 +1,83 @@
 setTimeout(function () {
     $('.alert').alert('close');
 }, 4000);
-function deleteNote(noteId) {
+
+function deleteNote(id) {
     fetch('/delete-note', {
         method: 'POST',
-        body: JSON.stringify({ noteId: noteId}),
+        body: JSON.stringify({ note_id: id}),
     }).then((_res) => {
         window.location.href = "/";
     });
 }
 
-function deleteItem(item_id) {
+function deleteItem(id) {
     fetch('/delete-item', {
         method: 'POST',
-        body: JSON.stringify({ item_id: item_id}),
+        body: JSON.stringify({ item_id: id}),
     }).then((_res) => {
         window.location.href = "/list";
     });
 }
 
-function toggleItemState(item_id) {
+function deleteUser(id){
+    fetch('/delete-user', {
+        method: 'POST',
+        body: JSON.stringify({ user_id: id}),
+    }).then((_res) => {
+        window.location.href = "/login";
+    });
+}
+
+function toggleItemState(id) {
     fetch('/toggle-item', {
         method: 'POST',
-        body: JSON.stringify({ item_id: item_id}),
+        body: JSON.stringify({ item_id: id}),
     }).then((_res) => {
         window.location.href = "/list";
+    });
+}
+
+function leaveGroup(id) {
+    fetch('/leave-group', {
+        method: 'POST',
+        body: JSON.stringify({ group_id: id}),
+    }).then((_res) => {
+        window.location.href = "/household";
     });
 }
 
 function editGroupName() {
   document.getElementById("group-name").removeAttribute('disabled');
   document.getElementById("group-name").removeAttribute('readonly');
+  document.getElementById("group-name").focus();
 }
 
-document.getElementById("edit-button").addEventListener("click", editGroupName);
+function addGroupName() {
+  document.getElementById("new-group-name").focus();
+
+}
+
+function editEmail() {
+  document.getElementById("email_address").removeAttribute('disabled');
+  document.getElementById("email_address").focus();
+}
+
+function editName() {
+  document.getElementById("first_name").removeAttribute('disabled');
+  document.getElementById("first_name").focus();
+}
+
+function submit_addEvent() {
+  document.getElementById('addEventForm').submit();
+}
+
+
+$('#datepicker-box .input-daterange').datepicker({
+    format: "dd-mm-yyyy",
+    todayBtn: "linked",
+    clearBtn: true,
+    calendarWeeks: true,
+    autoclose: true,
+    todayHighlight: true
+});

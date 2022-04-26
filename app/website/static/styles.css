@@ -34,7 +34,7 @@
     top: 0;
     margin-left: 20px;
     margin-top: 35px;
-    max-width: 1300px;
+    max-width: 1000px;
 }
 
 .page-icon {
@@ -46,10 +46,17 @@
     width: 50%;
 }
 
-.list_header {
+.current-user-highlighting {
+    background-color: #f2bfff;
+}
+
+.header-text {
     margin-left: 20px;
-    color: #440399;
-    font-family: 'Ubuntu', sans-serif;
+    color: #280830;
+}
+
+.header-logo {
+    filter: invert(8%) sepia(23%) saturate(5363%) hue-rotate(267deg) brightness(93%) contrast(105%);
 }
 
 .custom-control {
@@ -125,15 +132,63 @@
 }
 
 .group-name-text-input {
+    padding: 0.2em;
+    font-size: 2em;
     border: 0;
     box-shadow: none;
 }
 
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 .group-name-text-input:focus {
     outline: none;
-    border-color: #fff;
+    background-color: #b0b0b0;
+    border-radius: 0.25rem;
+    -webkit-box-shadow: none;
+    text-overflow: ellipsis;
+    box-shadow: none;
+}
+
+.form-control-add-user {
+    border: 0;
+    box-shadow: none;
+    background-color: transparent;
+}
+
+.form-control-add-user:focus {
+    outline: none;
     -webkit-box-shadow: none;
     box-shadow: none;
+    text-overflow: ellipsis;
+}
+
+.btn-custom {
+    width: 30px;
+}
+
+.btn-custom-add {
+    width: 40px;
+}
+
+.profile-form {
+    margin-top: 1.5em;
+}
+
+.profile-form-custom{
+    border: 0.125em;
+    box-shadow: none;
+    background-color: #e9ecef;
+}
+
+.profile-form-custom:focus{
+    border: 0.125em;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    text-overflow: ellipsis;
+    background-color: #b4b6b8;
 }
 
 

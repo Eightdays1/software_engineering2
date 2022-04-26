@@ -9,14 +9,13 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    #Wenn die Daten im Eingabefeld mit POST-Request gesendet werden.
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
 
         user = User.query.filter_by(email=email).first()
         if user:
-            if check_password_hash(user.password, password):
+            if user.check_password(password):
                 flash('Successfully logged in.', category='success')
                 login_user(user, remember=True)
                 return redirect(url_for('views.home'))
@@ -24,7 +23,7 @@ def login():
                 flash('Incorrect password, please try again.', category='error')
         else:
             flash('Email does not exist.', category='error')
-    return render_template("login.html", user=current_user)
+    return render_template("login.html", current_user=current_user)
 
 
 @auth.route('/logout')
@@ -61,5 +60,5 @@ def sign_up():
             flash('Account created.', category='success')
             return redirect(url_for('views.home'))
 
-    return render_template("sign_up.html", user=current_user)
+    return render_template("sign_up.html", current_user=current_user)
 
