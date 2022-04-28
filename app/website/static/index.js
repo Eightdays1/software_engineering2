@@ -47,12 +47,30 @@ function toggleItemState(id) {
     });
 }
 
+function toggleItemStateDashboard(id) {
+    fetch('/api/toggle-item', {
+        method: 'POST',
+        body: JSON.stringify({ item_id: id}),
+    }).then((_res) => {
+        window.location.href = "/dashboard";
+    });
+}
+
 function toggleTaskState(id) {
     fetch('/api/toggle-task', {
         method: 'POST',
         body: JSON.stringify({ task_id: id}),
     }).then((_res) => {
         window.location.href = "/tasks";
+    });
+}
+
+function toggleTaskStateDashboard(id) {
+    fetch('/api/toggle-task', {
+        method: 'POST',
+        body: JSON.stringify({ task_id: id}),
+    }).then((_res) => {
+        window.location.href = "/dashboard";
     });
 }
 

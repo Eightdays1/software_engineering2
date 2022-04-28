@@ -1,14 +1,13 @@
-from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for
-from flask_login import login_required, current_user
+from flask import Blueprint, request, jsonify, redirect, url_for
+from flask_login import current_user
 
 from datetime import datetime
-from datetime import timedelta
 from .models import Note, Item, Group, User, Event, Task
 from .views import get_current_group
 from . import db
 import json
 import uuid
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash
 
 api = Blueprint('api', __name__, url_prefix='/api/')
 
@@ -184,17 +183,10 @@ def toggle_task():
     data = json.loads(request.data)
     task_id = data['task_id']
     task = Task.query.get(task_id)
-    for element in get_current_group().tasks:
-        print(element.title, element.state, element.id)
-    print(task.title, task.state, task.id)
     if task.group_id == get_current_group().id:
         if task.state is False:
-            print("true")
             task.state = True
         else:
-            print("false")
             task.state = False
-        print(task.state)
         db.session.commit()
-        print(task.state)
     return jsonify({})

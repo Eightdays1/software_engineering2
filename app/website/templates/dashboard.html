@@ -1,24 +1,88 @@
-{% extends "base.html" %}{% block title %}Changed{% endblock %}
-{% set active_page = "dashboard" %}
-
+{% extends "base.html" %}{% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<h1 align="center">Dashboard</h1>
-<ul class="list-group list-group-flush" id="notes">
-    {% for note in current_user.notes %}
-    <li class="list-group-item">
-        {{note.data}}
-        <button type="button" class="close" onclick="deleteNote({{ note.id }})">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </li>
-    {% endfor %}
-</ul>
-<form method="POST">
-    <textarea name="note" id="note" class="form-control"></textarea>
-    <br />
-    <div align="center">
-        <button type="submit" class="btn btn-primary">Add Note</button>
+<div class="d-flex flex-row">
+        <div class="p-2 page-icon">
+            <img src="/static/images/list-check-solid.svg"
+                 class="header-logo"
+                 alt="shoppinglist"
+                 width="50"
+                 height="50"/>
+        </div>
+        <div class="p-2">
+            <h1 class="header-text">Dashboard</h1>
+        </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-auto border border-dark rounded background-color-event-list">
+        <div class="shopping-list-on-dashboard-div background-color-event-list">
+           <h3>Upcoming events</h3>
+            <ul class="list-group" id="events">
+                {% for event in events %}
+                    <li class="list-group-item event-list-on-dashboard">
+                        {% if event.days_till == 0 %}
+                            {{event.title}} is today!
+                        {% endif %}
+                        {% if event.days_till > 0 %}
+                            {{event.title}} is in {{event.days_till}} days
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+     </div>
+</div>
+<br />
+<div class="row">
+ <div class="col-md-auto border border-dark rounded background-color-task-list">
+    <div class="shopping-list-on-dashboard-div background-color-task-list">
+       <h3>Tasks</h3>
+        <ul class="list-group" id="tasks">
+            {% for task in tasks %}
+                {% if task.state == False %}
+                    <li class="list-group-item task-list-on-dashboard">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input"
+                                   id="checkbox_{{ task.id }}" onclick="toggleTaskStateDashboard({{ task.id }});">
+                                <label class="custom-control-label" for="checkbox_{{ task.id }}">
+                                    {{task.title}}
+                                    {% if task.user_name %}
+                                         - {{task.user_name}}
+                                    {% endif %}
+                                    {% if task.date %}
+                                         - Due: {{task.date}}
+                                    {% endif %}
+                                </label>
+                        </div>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
     </div>
-</form>
+ </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-auto border border-dark rounded background-color-shopping-list">
+        <div class="shopping-list-on-dashboard-div background-color-shopping-list">
+           <h3>Shopping list</h3>
+            <ul class="list-group rounded" id="items">
+                {% for item in group.items %}
+                    {% if item.state == False %}
+                        <li class="list-group-item shopping-list-on-dashboard">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="checkbox_{{ item.id }}"
+                                       onclick="toggleItemStateDashboard({{ item.id }});">
+                                    <label class="custom-control-label" for="checkbox_{{ item.id }}">
+                                        {{item.title}}
+                                    </label>
+                            </div>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
 {% endblock %}

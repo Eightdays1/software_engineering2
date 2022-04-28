@@ -17,7 +17,7 @@
 }
 
 .navbar-text {
-    margin-left: 4px;
+    margin-left: 0.5em;
 }
 
 .body {
@@ -41,9 +41,37 @@
     width: 50px;
 }
 
+.shopping-list-on-dashboard-div {
+    margin: 1em;
+}
+
+.background-color-shopping-list {
+    background-color: #ebfbff;
+}
+
+.background-color-task-list {
+    background-color: #ffffeb;
+}
+
+.background-color-event-list {
+    background-color: #fccfd7;
+}
+
 .list-group-item {
     background-color: #f7f7f7;
     width: 50%;
+}
+
+.shopping-list-on-dashboard {
+    width: 100%;
+}
+
+.task-list-on-dashboard {
+    width: 100%;
+}
+
+.event-list-on-dashboard {
+    width: 100%;
 }
 
 .current-user-highlighting {
@@ -191,4 +219,13 @@
     background-color: #b4b6b8;
 }
 
+.current-user-name {
+    margin-left: 0.45em;
+    font-size: 20px;
+
+}
+.notes-form {
+    align: left;
+    max-width: 50%;
+}
 

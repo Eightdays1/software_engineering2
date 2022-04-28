@@ -17,6 +17,49 @@ def get_current_group():
     return group
 
 
+def get_structured_task_data(task_list):
+    tasks_structured = []
+    for task in task_list:
+        element = {
+            'id': task.id,
+            'title': task.title,
+            'data': task.data,
+            'state': task.state
+        }
+        if task.user_id:
+            user = User.query.filter_by(id=task.user_id).first()
+            element['user_name'] = user.first_name
+            element['user_id'] = user.id
+        if task.date:
+            date = task.date.date()
+            element['date'] = date
+        tasks_structured.append(element)
+    return tasks_structured
+
+
+def get_structured_upcoming_events(events):
+    current_date = datetime.now()
+    upcoming_events = []
+    for event in events:
+        if 0 <= days_between(current_date, event.start) <= 7:
+            if event.user_id:
+                user_name = ' (' + User.query.get(event.user_id).first_name + ')'
+            else:
+                user_name = ''
+            element = {
+                'title': event.title + user_name,
+                'days_till': days_between(current_date, event.start),
+            }
+            upcoming_events.append(element)
+
+    print(upcoming_events)
+    return upcoming_events
+
+
+def days_between(d1, d2):
+    return (d2 - d1).days + 1
+
+
 def create_new_group(new_group_name):
     new_uuid = str(uuid.uuid4())
     new_group = Group(name=new_group_name, uuid=new_uuid)
@@ -54,7 +97,26 @@ def home():
 @views.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def dashboard():
-    return render_template("dashboard.html", current_user=current_user)
+    task_list = Task.query.filter_by(group_id=get_current_group().id).all()
+    events = Event.query.filter_by(group_id=get_current_group().id).all()
+
+    tasks_structured = get_structured_task_data(task_list)
+    upcoming_events = get_structured_upcoming_events(events)
+
+    return render_template("dashboard.html", group=get_current_group(), tasks=tasks_structured, events=upcoming_events)
+
+
+@views.route('/notes', methods=['GET', 'POST'])
+@login_required
+def notes():
+    if request.method == 'POST':
+        data = request.form.get('note')
+        if data:
+            group = get_current_group()
+            new_note = Note(data=data, group_id=group.id)
+            db.session.add(new_note)
+            db.session.commit()
+    return render_template("notes.html", group=get_current_group())
 
 
 @views.route('/list', methods=['GET', 'POST'])
@@ -103,33 +165,21 @@ def tasks():
                 flash('Please enter a title.', category='error')
             else:
                 group_id = get_current_group().id
-                new_task = Task(title=title, group_id=group_id, date=date, data=data)
+                new_task = Task(title=title, group_id=group_id, data=data)
                 if user_id != "0":
                     new_task.user_id = user_id
+                if date:
+                    new_task.date = date
                 db.session.add(new_task)
                 db.session.commit()
 
     users_list = User.query.filter_by(group_id=get_current_group().id).all()
     task_list = Task.query.filter_by(group_id=get_current_group().id).all()
 
-    tasks_structured = []
-    for task in task_list:
-        element = {
-            'id': task.id,
-            'title': task.title,
-            'data': task.data,
-            'state': task.state
-        }
-        if task.user_id:
-            user = User.query.filter_by(id=task.user_id).first()
-            element['user_name'] = user.first_name
-            element['user_id'] = user.id
-        if task.date:
-            date = task.date.date()
-            element['date'] = date
-        tasks_structured.append(element)
+    tasks_structured = get_structured_task_data(task_list)
 
-    return render_template("tasks.html", tasks=tasks_structured, users_in_group=users_list, current_user=current_user, group=get_current_group())
+    return render_template("tasks.html", tasks=tasks_structured, users_in_group=users_list, current_user=current_user,
+                           group=get_current_group())
 
 
 @views.route('/household', methods=['GET', 'POST'])
@@ -251,14 +301,17 @@ def calendar():
                 }
             events.append(element)
     task_list = Task.query.filter_by(group_id=get_current_group().id).all()
+    highest_event_id = event_list[-1].id
+    index = highest_event_id
     for task in task_list:
+        index += 1
         if task.date:
             if task.user_id:
                 user_name = User.query.get(task.user_id).first_name
             else:
                 user_name = ''
             element = {
-                'id': event_list[-1].id + 1,
+                'id': index,
                 'title': task.title + ' (' + user_name + ')',
                 'start': task.date,
                 'end': task.date,
@@ -266,5 +319,5 @@ def calendar():
             }
             events.append(element)
 
-
-    return render_template("calendar.html", current_user=current_user, group=get_current_group(), events=events)
+    return render_template("calendar.html", current_user=current_user,
+                           group=get_current_group(), events=events, highest_event_id=highest_event_id)

@@ -1,0 +1,33 @@
+{% extends "base.html" %}{% block title %}Notes{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-row">
+        <div class="p-2 page-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-sticky-fill" viewBox="0 0 16 16">
+              <path d="M2.5 1A1.5 1.5 0 0 0 1 2.5v11A1.5 1.5 0 0 0 2.5 15h6.086a1.5 1.5 0 0 0 1.06-.44l4.915-4.914A1.5 1.5 0 0 0 15 8.586V2.5A1.5 1.5 0 0 0 13.5 1h-11zm6 8.5a1 1 0 0 1 1-1h4.396a.25.25 0 0 1 .177.427l-5.146 5.146a.25.25 0 0 1-.427-.177V9.5z"/>
+            </svg>
+        </div>
+        <div class="p-2">
+            <h1 class="header-text">Notes</h1>
+        </div>
+</div>
+<br />
+<ul class="list-group list-group-flush" id="notes">
+    {% for note in group.notes %}
+    <li class="list-group-item">
+        {{note.data}}
+        <button type="button" class="close" onclick="deleteNote({{ note.id }})">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </li>
+    {% endfor %}
+</ul>
+<br />
+<form method="POST">
+    <div class="input-group notes-form">
+        <textarea name="note" id="note" class="form-control"></textarea>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Add Note</button>
+</form>
+{% endblock %}

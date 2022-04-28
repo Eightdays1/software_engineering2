@@ -45,13 +45,17 @@
                     hour12: false
         },
         eventClick: function (event) {
-            if(confirm("Are you sure you want to delete it?")){
-                fetch('/delete-event', {
-                    method: 'POST',
-                    body: JSON.stringify({ event_id: event.event.id}),
-                }).then((_res) => {
-                    window.location.href = "/calendar";
-                });
+            if (event.event.id > {{highest_event_id}}){
+                alert("This is a task. To delete it, please go to the Tasks page.")
+            } else {
+                if(confirm("Are you sure you want to delete it?")){
+                    fetch('/delete-event', {
+                        method: 'POST',
+                        body: JSON.stringify({ event_id: event.event.id}),
+                    }).then((_res) => {
+                        window.location.href = "/calendar";
+                    });
+              }
             }
         }
     });
