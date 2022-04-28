@@ -3,7 +3,7 @@ setTimeout(function () {
 }, 4000);
 
 function deleteNote(id) {
-    fetch('/delete-note', {
+    fetch('/api/delete-note', {
         method: 'POST',
         body: JSON.stringify({ note_id: id}),
     }).then((_res) => {
@@ -12,7 +12,7 @@ function deleteNote(id) {
 }
 
 function deleteItem(id) {
-    fetch('/delete-item', {
+    fetch('/api/delete-item', {
         method: 'POST',
         body: JSON.stringify({ item_id: id}),
     }).then((_res) => {
@@ -21,7 +21,7 @@ function deleteItem(id) {
 }
 
 function deleteUser(id){
-    fetch('/delete-user', {
+    fetch('/api/delete-user', {
         method: 'POST',
         body: JSON.stringify({ user_id: id}),
     }).then((_res) => {
@@ -29,8 +29,17 @@ function deleteUser(id){
     });
 }
 
+function deleteTask(id){
+    fetch('/api/delete-task', {
+        method: 'POST',
+        body: JSON.stringify({ task_id: id}),
+    }).then((_res) => {
+        window.location.href = "/tasks";
+    });
+}
+
 function toggleItemState(id) {
-    fetch('/toggle-item', {
+    fetch('/api/toggle-item', {
         method: 'POST',
         body: JSON.stringify({ item_id: id}),
     }).then((_res) => {
@@ -38,8 +47,17 @@ function toggleItemState(id) {
     });
 }
 
+function toggleTaskState(id) {
+    fetch('/api/toggle-task', {
+        method: 'POST',
+        body: JSON.stringify({ task_id: id}),
+    }).then((_res) => {
+        window.location.href = "/tasks";
+    });
+}
+
 function leaveGroup(id) {
-    fetch('/leave-group', {
+    fetch('/api/leave-group', {
         method: 'POST',
         body: JSON.stringify({ group_id: id}),
     }).then((_res) => {
@@ -70,6 +88,17 @@ function editName() {
 
 function submit_addEvent() {
   document.getElementById('addEventForm').submit();
+}
+
+function submit_addTask() {
+  document.getElementById('addTaskForm').submit();
+}
+
+function submit_addTaskDynamic(id) {
+    console.log(id)
+  var element = 'addTaskForm_' + String(id)
+  console.log(String(element))
+  document.getElementById(String(element)).submit();
 }
 
 function removeDisabledRepeatTill() {

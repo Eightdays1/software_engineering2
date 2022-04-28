@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 
 from datetime import datetime
 from datetime import timedelta
-from .models import Note, Item, Group, User, Event
+from .models import Note, Item, Group, User, Event, Task
 from . import db
 import json
 import uuid
@@ -72,6 +72,64 @@ def shoppinglist():
             flash('Item added!', category='success')
 
     return render_template("list.html", current_user=current_user, group=get_current_group())
+
+
+@views.route('/tasks', methods=['GET', 'POST'])
+@login_required
+def tasks():
+    if request.method == 'POST':
+        task_id = request.form.get('task_id')
+        title = request.form.get('title_input')
+        user_id = request.form.get('user_input')
+        date = request.form.get('date_input')
+        data = request.form.get('data_input')
+        if date:
+            date = datetime.strptime(date, "%Y-%m-%d")
+        if task_id:
+            task = Task.query.get(task_id)
+            if title != '':
+                task.title = title
+                if user_id != "0":
+                    task.user_id = user_id
+                else:
+                    task.user_id = None
+                if date:
+                    task.date = date
+                task.data = data
+            else:
+                flash('Title can´t be empty.', category='error')
+        else:
+            if title == '':
+                flash('Please enter a title.', category='error')
+            else:
+                group_id = get_current_group().id
+                new_task = Task(title=title, group_id=group_id, date=date, data=data)
+                if user_id != "0":
+                    new_task.user_id = user_id
+                db.session.add(new_task)
+                db.session.commit()
+
+    users_list = User.query.filter_by(group_id=get_current_group().id).all()
+    task_list = Task.query.filter_by(group_id=get_current_group().id).all()
+
+    tasks_structured = []
+    for task in task_list:
+        element = {
+            'id': task.id,
+            'title': task.title,
+            'data': task.data,
+            'state': task.state
+        }
+        if task.user_id:
+            user = User.query.filter_by(id=task.user_id).first()
+            element['user_name'] = user.first_name
+            element['user_id'] = user.id
+        if task.date:
+            date = task.date.date()
+            element['date'] = date
+        tasks_structured.append(element)
+
+    return render_template("tasks.html", tasks=tasks_structured, users_in_group=users_list, current_user=current_user, group=get_current_group())
 
 
 @views.route('/household', methods=['GET', 'POST'])
@@ -192,5 +250,21 @@ def calendar():
                     'color': event.color
                 }
             events.append(element)
+    task_list = Task.query.filter_by(group_id=get_current_group().id).all()
+    for task in task_list:
+        if task.date:
+            if task.user_id:
+                user_name = User.query.get(task.user_id).first_name
+            else:
+                user_name = ''
+            element = {
+                'id': event_list[-1].id + 1,
+                'title': task.title + ' (' + user_name + ')',
+                'start': task.date,
+                'end': task.date,
+                'color': 'grey'
+            }
+            events.append(element)
+
 
     return render_template("calendar.html", current_user=current_user, group=get_current_group(), events=events)

@@ -3,14 +3,14 @@ from flask_login import login_required, current_user
 
 from datetime import datetime
 from datetime import timedelta
-from .models import Note, Item, Group, User, Event
+from .models import Note, Item, Group, User, Event, Task
 from .views import get_current_group
 from . import db
 import json
 import uuid
 from werkzeug.security import generate_password_hash, check_password_hash
 
-api = Blueprint('api', __name__)
+api = Blueprint('api', __name__, url_prefix='/api/')
 
 
 @api.route('/reset_db', methods=['GET'])
@@ -23,7 +23,6 @@ def reset_db():
 
 @api.route('/print_db', methods=['GET'])
 def print_db():
-
     for i in range(20):
         event = Event.query.filter_by(id=i).first()
         if event:
@@ -66,9 +65,18 @@ def create_demo_data():
     db.session.commit()
 
     user = User.query.filter_by(first_name='test').first()
-    new_event = Event(title='Restmüll', group_id=group.id, user_id=user.id, repeat=2, repeat_till=datetime(2022, 5, 26, 0, 0), color='#401902')
-    new_event1 = Event(title='Wertstoff', group_id=group.id, repeat=1, repeat_till=datetime(2022, 5, 26, 0, 0), color='green')
+    new_event = Event(title='Restmüll', group_id=group.id, user_id=user.id, repeat=2,
+                      repeat_till=datetime(2022, 5, 26, 0, 0), color='#401902')
+    new_event1 = Event(title='Wertstoff', group_id=group.id, repeat=1, repeat_till=datetime(2022, 5, 26, 0, 0),
+                       color='green')
     db.session.add_all([new_event, new_event1])
+    db.session.commit()
+
+    new_task1 = Task(title='Schranktür reparieren', group_id=group.id,
+                     data='Kleiderschranktür links öffnet nicht mehr richtig')
+    new_task2 = Task(title='Müll rausbringen', group_id=group.id,
+                     data='Der Müll stinkt.', user_id=user.id, date=datetime.now())
+    db.session.add_all([new_task1, new_task2])
     db.session.commit()
 
     print('Added demo data')
@@ -84,7 +92,7 @@ def delete_note():
         if note.user_id == current_user.id:
             db.session.delete(note)
             db.session.commit()
-    return
+    return jsonify({})
 
 
 @api.route('/leave-group', methods=['POST'])
@@ -100,7 +108,7 @@ def leave_group():
         if group.users is None:
             db.session.delete(group)
             db.session.commit()
-    return
+    return jsonify({})
 
 
 @api.route('/delete-item', methods=['POST'])
@@ -112,7 +120,7 @@ def delete_item():
         if item.group_id == get_current_group().id:
             db.session.delete(item)
             db.session.commit()
-    return
+    return jsonify({})
 
 
 @api.route('/delete-event', methods=['POST'])
@@ -124,7 +132,7 @@ def delete_event():
         if event.group_id == get_current_group().id:
             db.session.delete(event)
             db.session.commit()
-    return
+    return jsonify({})
 
 
 @api.route('/delete-user', methods=['POST'])
@@ -142,13 +150,25 @@ def delete_user():
     if group.users is None:
         db.session.delete(group)
         db.session.commit()
-    return
+    return jsonify({})
+
+
+@api.route('/delete-task', methods=['POST'])
+def delete_task():
+    data = json.loads(request.data)
+    task_id = data['task_id']
+    task = Task.query.get(task_id)
+    if task:
+        if task.group_id == get_current_group().id:
+            db.session.delete(task)
+            db.session.commit()
+    return jsonify({})
 
 
 @api.route('/toggle-item', methods=['POST'])
 def toggle_item():
-    item = json.loads(request.data)
-    item_id = item['item_id']
+    data = json.loads(request.data)
+    item_id = data['item_id']
     item = Item.query.get(item_id)
     if item.group_id == get_current_group().id:
         if item.state is False:
@@ -156,4 +176,25 @@ def toggle_item():
         else:
             item.state = False
         db.session.commit()
-    return
+    return jsonify({})
+
+
+@api.route('/toggle-task', methods=['POST'])
+def toggle_task():
+    data = json.loads(request.data)
+    task_id = data['task_id']
+    task = Task.query.get(task_id)
+    for element in get_current_group().tasks:
+        print(element.title, element.state, element.id)
+    print(task.title, task.state, task.id)
+    if task.group_id == get_current_group().id:
+        if task.state is False:
+            print("true")
+            task.state = True
+        else:
+            print("false")
+            task.state = False
+        print(task.state)
+        db.session.commit()
+        print(task.state)
+    return jsonify({})
