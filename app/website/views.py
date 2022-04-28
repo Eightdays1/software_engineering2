@@ -17,12 +17,6 @@ def get_current_group():
     return group
 
 
-def change_group_name(group_name):
-    group = get_current_group()
-    group.name = group_name
-    db.session.commit()
-
-
 def create_new_group(new_group_name):
     new_uuid = str(uuid.uuid4())
     new_group = Group(name=new_group_name, uuid=new_uuid)
@@ -31,36 +25,6 @@ def create_new_group(new_group_name):
     new_group = Group.query.filter_by(uuid=new_uuid).first()
     current_user.group_id = new_group.id
     db.session.commit()
-
-
-def change_email(email):
-    if User.query.filter_by(email=email).first() is not None:
-        flash('Email already exists.', category='error')
-    else:
-        current_user.email = email
-        db.session.commit()
-        flash('Email changed.', category='success')
-
-
-def change_name(name):
-    current_user.first_name = name
-    db.session.commit()
-    flash('Name changed.', category='success')
-
-
-def change_password(old_password1, old_password2, new_password):
-    if old_password1 is None:
-        flash('Please enter your current password.', category='error')
-    elif old_password2 is None:
-        flash('Please confirm your current password.', category='error')
-    elif old_password1 != old_password2:
-        flash('Passwords do not match.', category='error')
-    elif current_user.check_password(old_password1) is False:
-        flash('Wrong password.', category='error')
-    else:
-        current_user.password = generate_password_hash(new_password, method='sha256')
-        db.session.commit()
-        flash('Password changed.', category='success')
 
 
 def add_user_to_group(email):
@@ -118,11 +82,13 @@ def household():
         new_group_name = request.form.get('new-group-name')
         add_user_email = request.form.get('add-user-email')
         if group_name is not None:
-            change_group_name(group_name)
+            if get_current_group().change_group_name(group_name) is True:
+                flash('Changed name of the group successfully.', category='success')
         elif new_group_name is not None:
             create_new_group(new_group_name)
         elif add_user_email is not None:
             add_user_to_group(add_user_email)
+        db.session.commit()
     return render_template("household.html", current_user=current_user, group=get_current_group())
 
 
@@ -136,11 +102,28 @@ def profile():
         old_password2 = request.form.get('old_password2')
         new_password = request.form.get('new_password')
         if email is not None:
-            change_email(email)
+            result = current_user.change_email(email)
+            if result is True:
+                flash('Email changed successfully.', category='success')
+            else:
+                flash('Email exists already.', category='error')
         elif name is not None:
-            change_name(name)
-        if (old_password1 or old_password2 or new_password) is not None:
-            change_password(old_password1, old_password2, new_password)
+            current_user.change_name(name)
+            flash('Name changed.', category='success')
+        elif (old_password1 or old_password2 or new_password) is not None:
+            if old_password1 is None:
+                flash('Please enter your current password.', category='error')
+            elif old_password2 is None:
+                flash('Please confirm your current password.', category='error')
+            elif old_password1 != old_password2:
+                flash('Passwords do not match.', category='error')
+            elif current_user.check_password(old_password1) is False:
+                flash('Wrong password.', category='error')
+            else:
+                current_user.change_pasword(new_password)
+                db.session.commit()
+                flash('Password changed.', category='success')
+        db.session.commit()
     return render_template("profile.html", current_user=current_user, group=get_current_group())
 
 
@@ -166,16 +149,16 @@ def calendar():
         else:
             new_uuid = str(uuid.uuid4())
             group_id = get_current_group().id
-            new_event = Event(title=title, group_id=group_id, uuid=new_uuid, repeat=repeat, start=start_date, end=end_date)
+            new_event = Event(title=title, group_id=group_id,
+                              uuid=new_uuid, repeat=repeat,
+                              start=start_date, end=end_date, color=color)
             db.session.add(new_event)
             db.session.commit()
-            new_event = Event.query.filter_by(uuid=new_uuid).first()
             if user_id != "0":
                 new_event.user_id = user_id
             if repeat_till:
                 repeat_till = datetime.strptime(repeat_till, "%Y-%m-%d")
             new_event.repeat_till = repeat_till
-            new_event.color = color
             db.session.commit()
 
     event_list = Event.query.filter_by(group_id=current_user.group_id).all()
