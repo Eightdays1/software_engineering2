@@ -44,6 +44,10 @@ class Group(db.Model):
     items = db.relationship('Item')
     events = db.relationship('Event')
 
+    def change_group_name(self, new_group_name):
+        self.name = new_group_name
+        return
+
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -57,4 +61,16 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
+    def change_name(self, new_name):
+        self.first_name = new_name
+
+    def change_email(self, new_email):
+        if User.query.filter_by(email=new_email).first() is not None:
+            return False
+        else:
+            self.email = new_email
+            return True
+
+    def change_password(self, new_password):
+        self.password = generate_password_hash(new_password, method='sha256')
 
