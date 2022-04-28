@@ -1,10 +1,7 @@
 {% extends "base.html" %}{% block title %}Calendar{% endblock %}
 
-
-
-
 {% block content %}
-<div id='calendar'></div>
+<div id='calendar' xmlns="http://www.w3.org/1999/html"></div>
 <script>
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -13,6 +10,7 @@
         themeSystem: "bootstrap",
         weekNumbers: true,
         dayMaxEvents: true,
+        displayEventTime: false,
         customButtons: {
             add_event: {
                 text: 'Add event',
@@ -36,7 +34,8 @@
                     title: '{{event.title}}',
                     start: '{{event.start}}',
                     end: '{{event.end}}',
-                    color: '{{event.color}}'
+                    color: '{{event.color}}',
+                    allDay: true
                 },
             {% endfor %}
           ],
@@ -49,9 +48,9 @@
             if(confirm("Are you sure you want to delete it?")){
                 fetch('/delete-event', {
                     method: 'POST',
-                    body: JSON.stringify({ event_id: event.id}),
+                    body: JSON.stringify({ event_id: event.event.id}),
                 }).then((_res) => {
-                    window.location.href = "/calender";
+                    window.location.href = "/calendar";
                 });
             }
         }
@@ -61,7 +60,7 @@
 {% endblock %}
 
 {% block outside_body %}
-<div class="modal fade" id="add_event" tabindex="-1">
+<div class="modal fade" id="add_event" tabindex="-1" >
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -69,35 +68,59 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="addEventForm">
+        <form method="POST" id="addEventForm">
            <div class="input-group mb-3">
-             <label  class="input-group-text" id="title_label">Title</label >
-             <input type="text" class="form-control" id="title_input" placeholder="Title">
+             <label  class="input-group-text" id="title_label">Title*</label >
+             <input type="text" class="form-control" id="title_input" name="title_input" placeholder="Title" required>
           </div>
           <div class="input-group mb-3">
             <label class="input-group-text" id="user_label">User</label >
-              <select class="form-select" id="user_input">
-                <option selected>None</option>
-                {% for user in group.users %}
-                  <option>{{user.first_name}}</option>
-                {% endfor %}
+            <select class="form-select" id="user_input" name="user_input">
+              <option selected value="0">None</option>
+              {% for user in group.users %}
+                <option value="{{user.id}}">{{user.first_name}}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="input-group mb-3">
+            <label class="input-group-text" id="start_label">Start</label >
+            <input class="form-control" type="date" id="start_input" name="start_input">
+          </div>
+          <div class="input-group mb-3">
+            <label class="input-group-text" id="end_label">Ende</label >
+            <input class="form-control" type="date" id="end_input" name="end_input">
+          </div>
+          <div class="input-group mb-3">
+            <label class="input-group-text" id="repeat_label">Repeat</label >
+              <select class="form-select" id="repeat_input" name="repeat_input" onchange="removeDisabledRepeatTill()">
+                <option selected value="0">None</option>
+                <option value="1" >Every week</option>
+                <option value="2">Every two weeks</option>
+                <option value="3">Every three weeks</option>
+                <option value="4">Every four weeks</option>
               </select>
           </div>
-          <div class="input-group mb-3" id="datepicker-box">
-            <label class="input-group-text" id="basic-addon2">Date</label >
-            <div class="input-daterange input-group" id="datepicker">
-              <input type="text" class="input-sm form-control" name="start" />
-              <span class="input-group-addon">to</span>
-              <input type="text" class="input-sm form-control" name="end" />
-            </div>
+          <div class="input-group mb-3">
+            <label class="input-group-text" id="repeat-till_label">Repeat till</label >
+            <input class="form-control" type="date"  id="repeat-till_input" name="repeat-till_input" disabled>
+          </div>
+          <div class="input-group mb-3">
+            <label class="input-group-text" id="color_label">Choose a color</label >
+              <input type="color" value="#000000" id="color_input" name="color_input">
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" onclick="submit_addEvent()">Add event</button>
       </div>
     </div>
   </div>
 </div>
+<script>
+var date = new Date();
+var currentDate = date.toISOString().substring(0,10);
+document.getElementById('start_input').value = currentDate;
+document.getElementById('end_input').value = currentDate;
+</script>
 {% endblock %}

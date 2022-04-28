@@ -72,12 +72,11 @@ function submit_addEvent() {
   document.getElementById('addEventForm').submit();
 }
 
-
-$('#datepicker-box .input-daterange').datepicker({
-    format: "dd-mm-yyyy",
-    todayBtn: "linked",
-    clearBtn: true,
-    calendarWeeks: true,
-    autoclose: true,
-    todayHighlight: true
-});
+function removeDisabledRepeatTill() {
+    var value = document.getElementById('repeat_input').value
+    if (value > 0){
+        document.getElementById('repeat-till_input').removeAttribute('disabled');
+    } else {
+        document.getElementById('repeat-till_input').setAttribute('disabled', 'true');
+    }
+}

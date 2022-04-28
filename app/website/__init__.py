@@ -16,11 +16,11 @@ def create_app():
 
     from .views import views
     from .auth import auth
+    from .api import api
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
-
-    from .models import User, Note, Item
+    app.register_blueprint(api, url_pref='/api/')
 
     create_database(app)
 
@@ -28,9 +28,11 @@ def create_app():
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
 
+    from .models import User
+
     @login_manager.user_loader
-    def load_user(id):
-        return User.query.get(int(id))
+    def load_user(user_id):
+        return User.query.get(int(user_id))
 
     return app
 

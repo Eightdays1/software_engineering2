@@ -20,20 +20,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7164d318-e4ce-43a3-9bb7-c3a90732b0d3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/website/static/images/fairy_logo.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/website/templates/calendar.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/website/templates/profile.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/website/api.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/REQUIREMENTS.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/auth.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/database.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/static/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/website/static/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/static/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/website/static/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/templates/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/templates/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/templates/household.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/templates/household.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/templates/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/templates/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/templates/calendar.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/templates/calendar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/templates/profile.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,8 +41,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
