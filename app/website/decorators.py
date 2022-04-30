@@ -11,5 +11,4 @@ def household_required(f):
             flash('Please create a household.', category="error")
             return redirect(url_for('views.household'))
         return f(*args, **kwargs)
-
     return wrap

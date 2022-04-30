@@ -2,29 +2,22 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager, current_user
+from website.config import BaseConfig
 
 
 db = SQLAlchemy()
-DB_NAME = "database.db"
+app = Flask(__name__)
 
 
-def create_app():
-    app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'SECRET_KEY'
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+def create_app(base_config=BaseConfig):
+    app.config.from_object(base_config)
+
     db.init_app(app)
-
-    from website.views.views import views
-    from website.auth.auth import auth
-    from website.api.api import api
-
-    app.register_blueprint(views)
-    app.register_blueprint(auth)
-    app.register_blueprint(api)
 
     from .models import User, Group
 
-    create_database(app)
+    if not path.exists('website/' + base_config.DB_NAME):
+        db.create_all(app=app)
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
@@ -35,9 +28,3 @@ def create_app():
         return User.query.get(int(user_id))
 
     return app
-
-
-def create_database(app):
-    if not path.exists('website/' + DB_NAME):
-        db.create_all(app=app)
-        print('Created Database.')

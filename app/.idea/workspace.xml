@@ -20,36 +20,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7164d318-e4ce-43a3-9bb7-c3a90732b0d3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/website/api/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/website/auth/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/website/decorators.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/website/validate.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/website/views/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/base_test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/functional/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/functional/test_api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/functional/test_view.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/unit/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/unit/test_model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/website/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/api/api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/auth/auth.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/api/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/api/api.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/website/database.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/decorators.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/decorators.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/static/images/dashboard.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/static/images/list-check-solid.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/static/images/people-fill.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/static/images/user.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/static/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/website/static/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/templates/calendar.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/views/templates/calendar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/views/templates/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/templates/home.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/templates/household.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/views/templates/household.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/templates/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/views/templates/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/auth/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/templates/logout.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/auth/templates/logout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/templates/notes.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/views/templates/notes.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/views/templates/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/templates/sign_up.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/auth/templates/sign_up.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/templates/tasks.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/views/templates/tasks.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/views/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/validate.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/validate.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/views/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/views/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +48,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="Python Unit Test" />
         <option value="Python Script" />
       </list>
     </option>
@@ -89,14 +78,14 @@
       <recent name="C:\Users\Kevin\Documents\SE2\app\website\images" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Kevin\Documents\SE2\app\tests\functional" />
+      <recent name="C:\Users\Kevin\Documents\SE2\app\tests\unit" />
+      <recent name="C:\Users\Kevin\Documents\SE2\app\tests" />
       <recent name="C:\Users\Kevin\Documents\SE2\app\website\views\templates" />
       <recent name="C:\Users\Kevin\Documents\SE2\app\website\views" />
-      <recent name="C:\Users\Kevin\Documents\SE2\app\website\api" />
-      <recent name="C:\Users\Kevin\Documents\SE2\app\website\auth\templates" />
-      <recent name="C:\Users\Kevin\Documents\SE2\app\website\auth" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python tests.Python tests in test_model.py">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="app" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -118,6 +107,85 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Python tests for tests.functional.test_api.APITests" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="app" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;tests.functional.test_api.APITests&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for tests.functional.test_view.test_view.test_days_till" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="app" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;tests.functional.test_view.test_view.test_days_till&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for tests.unit.test_model" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="app" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/unit" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;tests.unit.test_model&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for tests.unit.test_model" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="app" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/unit" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;tests.unit.test_model&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests in test_model.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="app" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/unit" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/tests/unit/test_model.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python tests.Python tests in test_model.py" />
+        <item itemvalue="Python tests.Python tests for tests.unit.test_model" />
+        <item itemvalue="Python tests.Python tests for tests.unit.test_model" />
+        <item itemvalue="Python tests.Python tests for tests.functional.test_api.APITests" />
+        <item itemvalue="Python tests.Python tests for tests.functional.test_view.test_view.test_days_till" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

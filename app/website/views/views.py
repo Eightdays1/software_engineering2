@@ -1,15 +1,14 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 
-from website.decorators import household_required
 from website.validate import Validate
+from website.decorators import household_required
 
 from website.models import Note, Item, Group, User, Event, Task
 from website import db
 
 from datetime import datetime
 from datetime import timedelta
-import uuid
 
 views = Blueprint('views', __name__, template_folder='templates')
 
@@ -51,7 +50,7 @@ def get_structured_upcoming_events(events):
 
 
 def days_till(date):
-    return (date - datetime.now()).days + 1
+    return (date.date() - datetime.now().date()).days
 
 
 def create_new_group(new_group_name):
@@ -187,12 +186,20 @@ def household():
         new_group_name = request.form.get('new-group-name')
         add_user_email = request.form.get('add-user-email')
         if group_name is not None:
+            if Validate(group_name).group_name() is False:
+                flash('Please enter a valid group name.', category='error')
             if current_user.get_current_group().change_group_name(group_name) is True:
                 flash('Changed name of the group successfully.', category='success')
         elif new_group_name is not None:
-            create_new_group(new_group_name)
+            if Validate(new_group_name).group_name() is False:
+                flash('Please enter a valid group name.', category='error')
+            else:
+                create_new_group(new_group_name)
         elif add_user_email is not None:
-            add_user_to_group(add_user_email)
+            if Validate(add_user_email).email() is False:
+                flash('Please enter a valid email address.', category='error')
+            else:
+                add_user_to_group(add_user_email)
         db.session.commit()
     return render_template("household.html", current_user=current_user, group=current_user.get_current_group())
 
@@ -207,13 +214,18 @@ def profile():
         old_password2 = request.form.get('old_password2')
         new_password = request.form.get('new_password')
         if email is not None:
+            if Validate(email).email() is False:
+                flash('Please enter a valid email address.', category='error')
             if current_user.change_email(email) is True:
                 flash('Email changed successfully.', category='success')
             else:
                 flash('Email exists already.', category='error')
         elif name is not None:
-            current_user.change_name(name)
-            flash('Name changed.', category='success')
+            if Validate(name).name() is False:
+                flash('Please enter a valid name.', category='error')
+            else:
+                current_user.change_name(name)
+                flash('Name changed.', category='success')
         elif (old_password1 or old_password2 or new_password) is not None:
             if old_password1 is None:
                 flash('Please enter your current password.', category='error')
@@ -256,10 +268,8 @@ def calendar():
         elif title == '':
             flash('Please enter a title.', category='error')
         else:
-            new_uuid = str(uuid.uuid4())
             group_id = current_user.group_id
-            new_event = Event(title=title, group_id=group_id,
-                              uuid=new_uuid, repeat=repeat,
+            new_event = Event(title=title, group_id=group_id, repeat=repeat,
                               start=start_date, end=end_date, color=color)
             db.session.add(new_event)
             db.session.commit()

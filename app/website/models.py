@@ -1,4 +1,4 @@
-from . import db
+from website import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -52,7 +52,6 @@ class Group(db.Model):
 
     def change_group_name(self, new_group_name):
         self.name = new_group_name
-        return
 
 
 class User(db.Model, UserMixin):

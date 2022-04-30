@@ -28,10 +28,10 @@ def create_demo_data():
     new_group = Group(name='Familie Müller')
     db.session.add(new_group)
     db.session.commit()
-    new_user = User(email='Thomas@domain.com',
+    new_user = User(email='Daniel@domain.com',
                     group_id=new_group.id,
-                    first_name='Thomas',
-                    password=generate_password_hash('Thomas123', method='sha256'))
+                    first_name='Daniel',
+                    password=generate_password_hash('Daniel123', method='sha256'))
     new_user2 = User(email='Sophia@domain.com',
                      group_id=new_group.id,
                      first_name='Sophia',
@@ -77,10 +77,12 @@ def delete_note():
     note_id = note['note_id']
     note = Note.query.get(note_id)
     if note:
-        if note.group_id == current_user.get_current_group.id:
+        if note.group_id == current_user.group_id:
             db.session.delete(note)
             db.session.commit()
-    return jsonify({})
+            return jsonify({}), 200
+        return jsonify({}), 401
+    return jsonify({}), 404
 
 
 @api.route('/leave-group', methods=['POST'])
@@ -92,11 +94,13 @@ def leave_group():
         if current_user in group.users:
             current_user.group_id = None
             db.session.commit()
-        group = Group.query.get(group_id)
-        if group.users is None:
-            db.session.delete(group)
-            db.session.commit()
-    return jsonify({})
+            group = Group.query.get(group_id)
+            if group.users is None:
+                db.session.delete(group)
+                db.session.commit()
+            return jsonify({}), 200
+        return jsonify({}), 401
+    return jsonify({}), 404
 
 
 @api.route('/delete-item', methods=['POST'])
@@ -105,10 +109,12 @@ def delete_item():
     item_id = item['item_id']
     item = Item.query.get(item_id)
     if item:
-        if item.group_id == current_user.get_current_group.id:
+        if item.group_id == current_user.group_id:
             db.session.delete(item)
             db.session.commit()
-    return jsonify({})
+            return jsonify({}), 200
+        return jsonify({}), 401
+    return jsonify({}), 404
 
 
 @api.route('/delete-event', methods=['POST'])
@@ -117,10 +123,12 @@ def delete_event():
     event_id = event['event_id']
     event = Event.query.get(event_id)
     if event:
-        if event.group_id == current_user.get_current_group.id:
+        if event.group_id == current_user.group_id:
             db.session.delete(event)
             db.session.commit()
-    return jsonify({})
+            return jsonify({}), 200
+        return jsonify({}), 401
+    return jsonify({}), 404
 
 
 @api.route('/delete-user', methods=['POST'])
@@ -133,12 +141,13 @@ def delete_user():
         if user.id == current_user.id:
             db.session.delete(user)
             db.session.commit()
-
-    group = Group.query.get(group_id)
-    if group.users is None:
-        db.session.delete(group)
-        db.session.commit()
-    return jsonify({})
+            group = Group.query.get(group_id)
+            if group.users is None:
+                db.session.delete(group)
+                db.session.commit()
+            return jsonify({}), 200
+        return jsonify({}), 401
+    return jsonify({}), 404
 
 
 @api.route('/delete-task', methods=['POST'])
@@ -147,10 +156,12 @@ def delete_task():
     task_id = data['task_id']
     task = Task.query.get(task_id)
     if task:
-        if task.group_id == current_user.get_current_group.id:
+        if task.group_id == current_user.group_id:
             db.session.delete(task)
             db.session.commit()
-    return jsonify({})
+            return jsonify({}), 200
+        return jsonify({}), 401
+    return jsonify({}), 404
 
 
 @api.route('/toggle-item', methods=['POST'])
@@ -158,13 +169,16 @@ def toggle_item():
     data = json.loads(request.data)
     item_id = data['item_id']
     item = Item.query.get(item_id)
-    if item.group_id == current_user.get_current_group.id:
-        if item.state is False:
-            item.state = True
-        else:
-            item.state = False
-        db.session.commit()
-    return jsonify({})
+    if item:
+        if item.group_id == current_user.group_id:
+            if item.state is False:
+                item.state = True
+            else:
+                item.state = False
+            db.session.commit()
+            return jsonify({}), 200
+        return jsonify({}), 401
+    return jsonify({}), 401
 
 
 @api.route('/toggle-task', methods=['POST'])
@@ -172,10 +186,13 @@ def toggle_task():
     data = json.loads(request.data)
     task_id = data['task_id']
     task = Task.query.get(task_id)
-    if task.group_id == current_user.get_current_group.id:
-        if task.state is False:
-            task.state = True
-        else:
-            task.state = False
-        db.session.commit()
-    return jsonify({})
+    if task:
+        if task.group_id == current_user.group_id:
+            if task.state is False:
+                task.state = True
+            else:
+                task.state = False
+            db.session.commit()
+            return jsonify({}), 200
+        return jsonify({}), 401
+    return jsonify({}), 401
