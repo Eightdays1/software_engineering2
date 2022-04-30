@@ -8,7 +8,7 @@ class TestAuth(BaseTestCase):
         response = self.tester.get('/sign-up')
         self.assertEqual(response.status_code, 200)
         form = {'email': 'test2@test.com', 'firstName': 'Test_User',
-                'password1': 'Password_1', 'password2': 'Password_1',}
+                'password1': 'Password_1', 'password2': 'Password_1'}
         response = self.tester.post('/sign-up', data=form)
         self.assertEqual(response.status_code, 302)
 

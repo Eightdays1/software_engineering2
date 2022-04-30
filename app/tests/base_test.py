@@ -1,9 +1,8 @@
-from unittest import mock
 from flask_testing import TestCase
 from werkzeug.security import generate_password_hash
 
 from website.config import TestConfig
-from flask_login import LoginManager, login_user, current_user
+from flask_login import login_user
 
 from website import db, create_app
 from website.models import User, Group, Note, Item, Event, Task

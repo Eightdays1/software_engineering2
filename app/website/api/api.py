@@ -16,57 +16,7 @@ api = Blueprint('api', __name__, url_prefix='/api/')
 def reset_db():
     db.drop_all()
     db.create_all()
-    return redirect(url_for('auth.login'))
-
-
-@api.route('/create_demo_data', methods=['GET'])
-def create_demo_data():
-    db.drop_all()
-    db.create_all()
-
-    new_group = Group(name='Familie Müller')
-    db.session.add(new_group)
-    db.session.commit()
-    new_user = User(email='Daniel@domain.com',
-                    group_id=new_group.id,
-                    first_name='Daniel',
-                    password=generate_password_hash('Daniel123', method='sha256'))
-    new_user2 = User(email='Sophia@domain.com',
-                     group_id=new_group.id,
-                     first_name='Sophia',
-                     password=generate_password_hash('Sophia123', method='sha256'))
-    new_user3 = User(email='Peter@domain.com',
-                     group_id=new_group.id,
-                     first_name='Peter',
-                     password=generate_password_hash('Peter123', method='sha256'))
-    db.session.add_all([new_user, new_user2, new_user3])
-    db.session.commit()
-
-    new_item1 = Item(title='Müsli', group_id=new_group.id, state=False)
-    new_item2 = Item(title='Käse', group_id=new_group.id, state=False)
-    new_item3 = Item(title='Apfel', group_id=new_group.id, state=False)
-    new_item4 = Item(title='Honig', group_id=new_group.id, state=False)
-    new_item5 = Item(title='Zucker', group_id=new_group.id, state=True)
-    new_item6 = Item(title='Kaffe', group_id=new_group.id, state=True)
-    db.session.add_all([new_item1, new_item2, new_item3, new_item4, new_item5, new_item6])
-    db.session.commit()
-
-    user = User.query.filter_by(first_name='Thomas').first()
-    new_event = Event(title='Restmüll', group_id=new_group.id, user_id=user.id, repeat=2,
-                      repeat_till=datetime(2022, 5, 26, 0, 0), color='#401902')
-    new_event1 = Event(title='Wertstoff', group_id=new_group.id, repeat=1, repeat_till=datetime(2022, 5, 26, 0, 0),
-                       color='green')
-    db.session.add_all([new_event, new_event1])
-    db.session.commit()
-
-    new_task1 = Task(title='Schranktür reparieren', group_id=new_group.id,
-                     data='Kleiderschranktür links öffnet nicht mehr richtig')
-    new_task2 = Task(title='Müll rausbringen', group_id=new_group.id,
-                     data='Der Müll stinkt.', user_id=user.id, date=datetime.now())
-    db.session.add_all([new_task1, new_task2])
-    db.session.commit()
-
-    print('Added demo data')
+    print("DB reset")
     return redirect(url_for('auth.login'))
 
 

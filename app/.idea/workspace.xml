@@ -20,18 +20,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7164d318-e4ce-43a3-9bb7-c3a90732b0d3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/tests/functional/test_auth.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Namensvorschläge.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.coverage" beforeDir="false" afterPath="$PROJECT_DIR$/.coverage" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/base_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/base_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/functional/test_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/functional/test_api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/functional/test_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/functional/test_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/unit/test_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/unit/test_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/functional/test_auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/functional/test_auth.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/api/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/api/api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/auth/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/auth/auth.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/website/database.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/database.db" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,19 +51,23 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
   <component name="ProjectId" id="26NAHAN1iuKVOYHl2OZjCHNy93V" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Kevin/Documents/SE2/app/website/static/images&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "last_opened_file_path": "C:/Users/Kevin/Documents/SE2/app/website/static/images",
+    "run.code.analysis.last.selected.profile": "aDefault",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Kevin\Documents\SE2\app\website\static\images" />
@@ -79,7 +81,7 @@
       <recent name="C:\Users\Kevin\Documents\SE2\app\website\views" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Python tests for test_api.TestAPI.test_delete_note">
+  <component name="RunManager" selected="Python.main">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="app" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -95,7 +97,7 @@
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="EMULATE_TERMINAL" value="true" />
       <option name="MODULE_MODE" value="false" />
       <option name="REDIRECT_INPUT" value="false" />
       <option name="INPUT_FILE" value="" />
@@ -185,6 +187,15 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Python.main" />
+      <item itemvalue="Python tests.Python tests for test_api.TestAPI.test_delete_note" />
+      <item itemvalue="Python tests.Python tests for test_api.TestAPI.test_reset_db" />
+      <item itemvalue="Python tests.Python tests for test_auth.TestAuth" />
+      <item itemvalue="Python tests.Python tests for test_auth.TestAuth.test_logout" />
+      <item itemvalue="Python tests.Python tests for test_auth.TestAuth.test_sign_up" />
+      <item itemvalue="Python tests.Python tests for tests.unit.test_model" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python tests.Python tests for test_api.TestAPI.test_delete_note" />
