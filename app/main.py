@@ -11,6 +11,6 @@ app.register_blueprint(auth)
 app.register_blueprint(api)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
 
 

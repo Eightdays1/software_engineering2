@@ -16,7 +16,6 @@ api = Blueprint('api', __name__, url_prefix='/api/')
 def reset_db():
     db.drop_all()
     db.create_all()
-    print('DB reset')
     return redirect(url_for('auth.login'))
 
 

@@ -13,10 +13,8 @@ class test_view(unittest.TestCase):
     def test_days_till(self):
         now = datetime.now()
         date_in_8_days = now + timedelta(days=8)
-        print(now, date_in_8_days)
         result = views.days_till(date_in_8_days)
-        print(result)
-        self.assertEqual(result, 8)  # add assertion here
+        self.assertEqual(result, 8)
 
 
 if __name__ == '__main__':

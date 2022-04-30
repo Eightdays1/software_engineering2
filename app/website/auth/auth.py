@@ -19,7 +19,7 @@ def login():
             if user.check_password(password):
                 flash('Successfully logged in.', category='success')
                 login_user(user, remember=True)
-                return redirect(url_for('views.home'))
+                return redirect(url_for('views.dashboard'))
             else:
                 flash('Incorrect password, please try again.', category='error')
         else:
@@ -41,7 +41,6 @@ def sign_up():
         first_name = request.form.get('firstName')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
-
         user = User.query.filter_by(email=email).first()
         if Validate(email).email() is False:
             flash('Please enter a valid email address.', category='error')
@@ -61,7 +60,7 @@ def sign_up():
             db.session.commit()
             login_user(new_user, remember=True)
             flash('Account created.', category='success')
-            return redirect(url_for('views.home'))
+            return redirect(url_for('views.dashboard'))
 
     return render_template("sign_up.html", current_user=current_user)
 

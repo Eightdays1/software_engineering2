@@ -1,6 +1,8 @@
 import unittest
 from tests.base_test import BaseTestCase
 
+from datetime import datetime
+
 from werkzeug.security import check_password_hash
 
 
@@ -72,6 +74,54 @@ class TestNoteModel(BaseTestCase):
 
     def test_group_id(self):
         self.assertEqual(self.new_note1.group_id, self.test_group.id)
+
+
+class TestItemModel(BaseTestCase):
+    def test_title(self):
+        self.assertEqual(self.new_item1.title, 'TestItem')
+        self.assertEqual(self.new_item2.title, 'TestItem2')
+
+    def test_group_id(self):
+        self.assertEqual(self.new_item1.group_id, self.test_group.id)
+        self.assertEqual(self.new_item2.group_id, self.test_group.id)
+
+    def test_state(self):
+        self.assertEqual(self.new_item1.state, False)
+        self.assertEqual(self.new_item2.state, True)
+
+
+class TestEventModel(BaseTestCase):
+    def test_title(self):
+        self.assertEqual(self.new_event.title, 'TestEvent')
+        self.assertEqual(self.new_event1.title, 'TestEvent1')
+
+    def test_group_id(self):
+        self.assertEqual(self.new_event.group_id, self.test_group.id)
+        self.assertEqual(self.new_event1.group_id, self.test_group.id)
+
+    def test_user_id(self):
+        self.assertEqual(self.new_event.user_id, self.test_user.id)
+        self.assertEqual(self.new_event1.user_id, None)
+
+    def test_start(self):
+        self.assertEqual(self.new_event.start, self.date)
+        self.assertEqual(self.new_event1.start, self.date)
+
+    def test_end(self):
+        self.assertEqual(self.new_event.end, self.date)
+        self.assertEqual(self.new_event1.end, self.date)
+
+    def test_repeat(self):
+        self.assertEqual(self.new_event.repeat, 2)
+        self.assertEqual(self.new_event1.repeat, 1)
+
+    def test_repeat_till(self):
+        self.assertEqual(self.new_event.repeat_till, datetime(2022, 7, 26, 0, 0))
+        self.assertEqual(self.new_event1.repeat_till, datetime(2022, 7, 26, 0, 0))
+
+    def test_color(self):
+        self.assertEqual(self.new_event.color, '#401902')
+        self.assertEqual(self.new_event1.color, 'green')
 
 
 if __name__ == '__main__':

@@ -7,7 +7,7 @@ class BaseConfig(object):
 
 
 class TestConfig(BaseConfig):
-    DEBUG = True
+    DEBUG = False
     TESTING = True
     WTF_CSRF_ENABLED = False
     SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'

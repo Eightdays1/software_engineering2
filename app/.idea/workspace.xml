@@ -20,24 +20,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7164d318-e4ce-43a3-9bb7-c3a90732b0d3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/tests/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/base_test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/functional/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/functional/test_api.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/functional/test_view.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/unit/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/unit/test_model.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/website/config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/functional/test_auth.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/base_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/base_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/functional/test_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/functional/test_api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/functional/test_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/functional/test_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/unit/test_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/unit/test_model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/api/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/api/api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/auth/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/auth/auth.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/website/database.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/decorators.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/decorators.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/validate.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/validate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/views/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/views/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +79,7 @@
       <recent name="C:\Users\Kevin\Documents\SE2\app\website\views" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Python tests in test_model.py">
+  <component name="RunManager" selected="Python tests.Python tests for test_api.TestAPI.test_delete_note">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="app" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -107,31 +101,73 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for tests.functional.test_api.APITests" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests for test_api.TestAPI.test_delete_note" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="app" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/functional" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;tests.functional.test_api.APITests&quot;" />
+      <option name="_new_target" value="&quot;test_api.TestAPI.test_delete_note&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for tests.functional.test_view.test_view.test_days_till" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests for test_api.TestAPI.test_reset_db" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="app" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/functional" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;tests.functional.test_view.test_view.test_days_till&quot;" />
+      <option name="_new_target" value="&quot;test_api.TestAPI.test_reset_db&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for test_auth.TestAuth" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="app" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/functional" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_auth.TestAuth&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for test_auth.TestAuth.test_logout" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="app" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/functional" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_auth.TestAuth.test_logout&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for test_auth.TestAuth.test_sign_up" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="app" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/functional" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_auth.TestAuth.test_sign_up&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
@@ -147,43 +183,15 @@
       <option name="_new_additionalArguments" value="&quot;&quot;" />
       <option name="_new_target" value="&quot;tests.unit.test_model&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Python tests for tests.unit.test_model" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
-      <module name="app" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/unit" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;tests.unit.test_model&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Python tests in test_model.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
-      <module name="app" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/unit" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;$PROJECT_DIR$/tests/unit/test_model.py&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.Python tests in test_model.py" />
-        <item itemvalue="Python tests.Python tests for tests.unit.test_model" />
-        <item itemvalue="Python tests.Python tests for tests.unit.test_model" />
-        <item itemvalue="Python tests.Python tests for tests.functional.test_api.APITests" />
-        <item itemvalue="Python tests.Python tests for tests.functional.test_view.test_view.test_days_till" />
+        <item itemvalue="Python tests.Python tests for test_api.TestAPI.test_delete_note" />
+        <item itemvalue="Python tests.Python tests for test_api.TestAPI.test_reset_db" />
+        <item itemvalue="Python tests.Python tests for test_auth.TestAuth" />
+        <item itemvalue="Python tests.Python tests for test_auth.TestAuth.test_logout" />
+        <item itemvalue="Python tests.Python tests for test_auth.TestAuth.test_sign_up" />
       </list>
     </recent_temporary>
   </component>
