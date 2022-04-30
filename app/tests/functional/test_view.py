@@ -1,12 +1,8 @@
 import unittest
-import flask_unittest
-import flask.globals
+
 from datetime import datetime
 from datetime import timedelta
 from website.views import views
-
-from website.models import Note, Item, Group, User, Event, Task
-from website import db
 
 
 class test_view(unittest.TestCase):

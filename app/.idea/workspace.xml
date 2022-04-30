@@ -21,9 +21,11 @@
   <component name="ChangeListManager">
     <list default="true" id="7164d318-e4ce-43a3-9bb7-c3a90732b0d3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/functional/test_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/functional/test_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/api/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/api/api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/auth/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/auth/auth.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/website/database.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/validate.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/validate.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/views/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/views/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +77,7 @@
       <recent name="C:\Users\Kevin\Documents\SE2\app\website\views" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main (1)">
+  <component name="RunManager" selected="Python.main">
     <configuration name="main (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="app" />
       <option name="INTERPRETER_OPTIONS" value="" />

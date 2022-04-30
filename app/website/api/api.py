@@ -51,24 +51,34 @@ def create_demo_data():
     db.session.commit()
 
     user = User.query.filter_by(first_name='Daniel').first()
-    new_event = Event(title='Restmüll', group_id=new_group.id, repeat=2,
+    new_event = Event(title='Restmüll', group_id=new_group.id, repeat=2, start=datetime.now(), end=datetime.now(),
                       repeat_till=datetime(2022, 5, 26, 0, 0), color='#401902')
-    new_event1 = Event(title='Wertstoff', group_id=new_group.id, repeat=1, repeat_till=datetime(2022, 5, 26, 0, 0),
-                       color='green')
+    new_event1 = Event(title='Wertstoff', group_id=new_group.id, repeat=1, start=datetime.now(), end=datetime.now(),
+                       repeat_till=datetime(2022, 5, 26, 0, 0), color='green')
     db.session.add_all([new_event, new_event1])
     db.session.commit()
 
     new_task1 = Task(title='Schranktür reparieren', group_id=new_group.id,
                      data='Kleiderschranktür links öffnet nicht mehr richtig')
     new_task2 = Task(title='Müll rausbringen', group_id=new_group.id,
-                     data='Der Müll stinkt.', user_id=user.id, date=datetime.now())
+                     data='Der Müll stinkt.', date=datetime.now())
     new_task3 = Task(title='Vorlesung bei TINF19B3 halten', group_id=new_group.id,
                      data='Thema: Unit Tests', user_id=user.id, date=datetime.now())
-    db.session.add_all([new_task1, new_task2])
+    db.session.add_all([new_task1, new_task2, new_task3])
     db.session.commit()
 
     print('Added demo data')
     return redirect(url_for('auth.login'))
+
+
+def delete_object(element):
+    if element:
+        if element.group_id == current_user.group_id:
+            db.session.delete(element)
+            db.session.commit()
+            return jsonify({}), 200
+        return jsonify({}), 401
+    return jsonify({}), 404
 
 
 @api.route('/delete-note', methods=['POST'])
@@ -76,13 +86,7 @@ def delete_note():
     note = json.loads(request.data)
     note_id = note['note_id']
     note = Note.query.get(note_id)
-    if note:
-        if note.group_id == current_user.group_id:
-            db.session.delete(note)
-            db.session.commit()
-            return jsonify({}), 200
-        return jsonify({}), 401
-    return jsonify({}), 404
+    return delete_object(note)
 
 
 @api.route('/leave-group', methods=['POST'])
@@ -108,13 +112,7 @@ def delete_item():
     item = json.loads(request.data)
     item_id = item['item_id']
     item = Item.query.get(item_id)
-    if item:
-        if item.group_id == current_user.group_id:
-            db.session.delete(item)
-            db.session.commit()
-            return jsonify({}), 200
-        return jsonify({}), 401
-    return jsonify({}), 404
+    return delete_object(item)
 
 
 @api.route('/delete-event', methods=['POST'])
@@ -122,13 +120,7 @@ def delete_event():
     event = json.loads(request.data)
     event_id = event['event_id']
     event = Event.query.get(event_id)
-    if event:
-        if event.group_id == current_user.group_id:
-            db.session.delete(event)
-            db.session.commit()
-            return jsonify({}), 200
-        return jsonify({}), 401
-    return jsonify({}), 404
+    return delete_object(event)
 
 
 @api.route('/delete-user', methods=['POST'])
@@ -155,13 +147,7 @@ def delete_task():
     data = json.loads(request.data)
     task_id = data['task_id']
     task = Task.query.get(task_id)
-    if task:
-        if task.group_id == current_user.group_id:
-            db.session.delete(task)
-            db.session.commit()
-            return jsonify({}), 200
-        return jsonify({}), 401
-    return jsonify({}), 404
+    return delete_object(task)
 
 
 @api.route('/toggle-item', methods=['POST'])

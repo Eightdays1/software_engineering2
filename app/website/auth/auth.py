@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from website.models import User
-from website.validate import Validate
+from website.validate import ValidateEmail, ValidatePassword, ValidateName
 from werkzeug.security import generate_password_hash
 from website import db
 from flask_login import login_user, login_required, logout_user, current_user
@@ -42,15 +42,15 @@ def sign_up():
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
         user = User.query.filter_by(email=email).first()
-        if Validate(email).email() is False:
+        if ValidateEmail(email).check() is False:
             flash('Please enter a valid email address.', category='error')
         elif user:
             flash('Email already exists.', category='error')
-        elif Validate(first_name).name() is False:
+        elif ValidateName(first_name).check() is False:
             flash('Please enter a valid name', category='error')
         elif password1 != password2:
             flash('Passwords don\'t match.', category='error')
-        elif Validate(password1).password() is False:
+        elif ValidatePassword(password1).check() is False:
             flash('password does not meet the requirements. '
                   '(Minimum eight characters, at least one letter, one number and one special character)',
                   category='error')
