@@ -7,7 +7,7 @@ function deleteNote(id) {
         method: 'POST',
         body: JSON.stringify({ note_id: id}),
     }).then((_res) => {
-        window.location.href = "/";
+        window.location.href = "/notes";
     });
 }
 

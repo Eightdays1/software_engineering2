@@ -1,10 +1,11 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from .models import User
+from website.models import User
+from website.validate import Validate
 from werkzeug.security import generate_password_hash
-from . import db
+from website import db
 from flask_login import login_user, login_required, logout_user, current_user
 
-auth = Blueprint('auth', __name__)
+auth = Blueprint('auth', __name__, template_folder='templates')
 
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -42,16 +43,18 @@ def sign_up():
         password2 = request.form.get('password2')
 
         user = User.query.filter_by(email=email).first()
-        if user:
-            flash('Email already exists.', category='error')
-        elif len(email) < 4:
+        if Validate(email).email() is False:
             flash('Please enter a valid email address.', category='error')
-        elif len(first_name) < 2:
-            flash('Please enter a valid name.', category='error')
+        elif user:
+            flash('Email already exists.', category='error')
+        elif Validate(first_name).name() is False:
+            flash('Please enter a valid name', category='error')
         elif password1 != password2:
             flash('Passwords don\'t match.', category='error')
-        elif len(password1) < 7:
-            flash('Passwords must be at least 7 characters.', category='error')
+        elif Validate(password1).password() is False:
+            flash('password does not meet the requirements. '
+                  '(Minimum eight characters, at least one letter, one number and one special character)',
+                  category='error')
         else:
             new_user = User(email=email, first_name=first_name, password=generate_password_hash(password1, method='sha256'))
             db.session.add(new_user)

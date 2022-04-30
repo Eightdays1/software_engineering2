@@ -1,20 +1,17 @@
-from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
+
+from website.decorators import household_required
+from website.validate import Validate
+
+from website.models import Note, Item, Group, User, Event, Task
+from website import db
 
 from datetime import datetime
 from datetime import timedelta
-from .models import Note, Item, Group, User, Event, Task
-from . import db
-import json
 import uuid
-from werkzeug.security import generate_password_hash, check_password_hash
 
-views = Blueprint('views', __name__)
-
-
-def get_current_group():
-    group = Group.query.filter_by(id=current_user.group_id).first()
-    return group
+views = Blueprint('views', __name__, template_folder='templates')
 
 
 def get_structured_task_data(task_list):
@@ -38,34 +35,29 @@ def get_structured_task_data(task_list):
 
 
 def get_structured_upcoming_events(events):
-    current_date = datetime.now()
     upcoming_events = []
     for event in events:
-        if 0 <= days_between(current_date, event.start) <= 7:
+        if 0 <= days_till(event.start) <= 7:
             if event.user_id:
                 user_name = ' (' + User.query.get(event.user_id).first_name + ')'
             else:
                 user_name = ''
             element = {
                 'title': event.title + user_name,
-                'days_till': days_between(current_date, event.start),
+                'days_till': days_till(event.start),
             }
             upcoming_events.append(element)
-
-    print(upcoming_events)
     return upcoming_events
 
 
-def days_between(d1, d2):
-    return (d2 - d1).days + 1
+def days_till(date):
+    return (date - datetime.now()).days + 1
 
 
 def create_new_group(new_group_name):
-    new_uuid = str(uuid.uuid4())
-    new_group = Group(name=new_group_name, uuid=new_uuid)
+    new_group = Group(name=new_group_name)
     db.session.add(new_group)
     db.session.commit()
-    new_group = Group.query.filter_by(uuid=new_uuid).first()
     current_user.group_id = new_group.id
     db.session.commit()
 
@@ -73,7 +65,7 @@ def create_new_group(new_group_name):
 def add_user_to_group(email):
     if email is not None:
         user_to_add = User.query.filter_by(email=email).first()
-        group = get_current_group()
+        group = current_user.get_current_group()
         if current_user.group_id != group.id:
             flash('Permission denied! You are not a member of this group.', category='error')
         elif user_to_add is None:
@@ -90,54 +82,59 @@ def add_user_to_group(email):
 
 @views.route('/', methods=['GET', 'POST'])
 @login_required
+@household_required
 def home():
     return redirect(url_for('views.dashboard'))
 
 
 @views.route('/dashboard', methods=['GET', 'POST'])
 @login_required
+@household_required
 def dashboard():
-    task_list = Task.query.filter_by(group_id=get_current_group().id).all()
-    events = Event.query.filter_by(group_id=get_current_group().id).all()
+    task_list = Task.query.filter_by(group_id=current_user.group_id).all()
+    events = Event.query.filter_by(group_id=current_user.group_id).all()
 
     tasks_structured = get_structured_task_data(task_list)
     upcoming_events = get_structured_upcoming_events(events)
 
-    return render_template("dashboard.html", group=get_current_group(), tasks=tasks_structured, events=upcoming_events)
+    return render_template("dashboard.html", group=current_user.get_current_group(),
+                           tasks=tasks_structured, events=upcoming_events)
 
 
 @views.route('/notes', methods=['GET', 'POST'])
 @login_required
+@household_required
 def notes():
     if request.method == 'POST':
         data = request.form.get('note')
         if data:
-            group = get_current_group()
+            group = current_user.get_current_group()
             new_note = Note(data=data, group_id=group.id)
             db.session.add(new_note)
             db.session.commit()
-    return render_template("notes.html", group=get_current_group())
+    return render_template("notes.html", group=current_user.get_current_group())
 
 
 @views.route('/list', methods=['GET', 'POST'])
 @login_required
+@household_required
 def shoppinglist():
     if request.method == 'POST':
         item = request.form.get('item_textfield')
         if len(item) < 1:
             flash('Item ist too short!', category='error')
         else:
-            group = get_current_group()
+            group = current_user.get_current_group()
             new_item = Item(title=item, group_id=group.id, state=False)
             db.session.add(new_item)
             db.session.commit()
             flash('Item added!', category='success')
-
-    return render_template("list.html", current_user=current_user, group=get_current_group())
+    return render_template("list.html", current_user=current_user, group=current_user.get_current_group())
 
 
 @views.route('/tasks', methods=['GET', 'POST'])
 @login_required
+@household_required
 def tasks():
     if request.method == 'POST':
         task_id = request.form.get('task_id')
@@ -164,7 +161,7 @@ def tasks():
             if title == '':
                 flash('Please enter a title.', category='error')
             else:
-                group_id = get_current_group().id
+                group_id = current_user.group_id
                 new_task = Task(title=title, group_id=group_id, data=data)
                 if user_id != "0":
                     new_task.user_id = user_id
@@ -173,13 +170,13 @@ def tasks():
                 db.session.add(new_task)
                 db.session.commit()
 
-    users_list = User.query.filter_by(group_id=get_current_group().id).all()
-    task_list = Task.query.filter_by(group_id=get_current_group().id).all()
+    users_list = User.query.filter_by(group_id=current_user.group_id).all()
+    task_list = Task.query.filter_by(group_id=current_user.group_id).all()
 
     tasks_structured = get_structured_task_data(task_list)
 
     return render_template("tasks.html", tasks=tasks_structured, users_in_group=users_list, current_user=current_user,
-                           group=get_current_group())
+                           group=current_user.get_current_group())
 
 
 @views.route('/household', methods=['GET', 'POST'])
@@ -190,14 +187,14 @@ def household():
         new_group_name = request.form.get('new-group-name')
         add_user_email = request.form.get('add-user-email')
         if group_name is not None:
-            if get_current_group().change_group_name(group_name) is True:
+            if current_user.get_current_group().change_group_name(group_name) is True:
                 flash('Changed name of the group successfully.', category='success')
         elif new_group_name is not None:
             create_new_group(new_group_name)
         elif add_user_email is not None:
             add_user_to_group(add_user_email)
         db.session.commit()
-    return render_template("household.html", current_user=current_user, group=get_current_group())
+    return render_template("household.html", current_user=current_user, group=current_user.get_current_group())
 
 
 @views.route('/profile', methods=['GET', 'POST'])
@@ -210,8 +207,7 @@ def profile():
         old_password2 = request.form.get('old_password2')
         new_password = request.form.get('new_password')
         if email is not None:
-            result = current_user.change_email(email)
-            if result is True:
+            if current_user.change_email(email) is True:
                 flash('Email changed successfully.', category='success')
             else:
                 flash('Email exists already.', category='error')
@@ -225,6 +221,10 @@ def profile():
                 flash('Please confirm your current password.', category='error')
             elif old_password1 != old_password2:
                 flash('Passwords do not match.', category='error')
+            elif Validate(new_password).password() is False:
+                flash('password does not meet the requirements. '
+                      '(Minimum eight characters, at least one letter, one number and one special character)',
+                      category='error')
             elif current_user.check_password(old_password1) is False:
                 flash('Wrong password.', category='error')
             else:
@@ -232,11 +232,12 @@ def profile():
                 db.session.commit()
                 flash('Password changed.', category='success')
         db.session.commit()
-    return render_template("profile.html", current_user=current_user, group=get_current_group())
+    return render_template("profile.html", current_user=current_user, group=current_user.get_current_group())
 
 
 @views.route('/calendar', methods=['GET', 'POST'])
 @login_required
+@household_required
 def calendar():
     if request.method == 'POST':
         title = request.form.get('title_input')
@@ -256,7 +257,7 @@ def calendar():
             flash('Please enter a title.', category='error')
         else:
             new_uuid = str(uuid.uuid4())
-            group_id = get_current_group().id
+            group_id = current_user.group_id
             new_event = Event(title=title, group_id=group_id,
                               uuid=new_uuid, repeat=repeat,
                               start=start_date, end=end_date, color=color)
@@ -300,8 +301,12 @@ def calendar():
                     'color': event.color
                 }
             events.append(element)
-    task_list = Task.query.filter_by(group_id=get_current_group().id).all()
-    highest_event_id = event_list[-1].id
+
+    task_list = Task.query.filter_by(group_id=current_user.group_id).all()
+    if event_list:
+        highest_event_id = event_list[-1].id
+    else:
+        highest_event_id = 0
     index = highest_event_id
     for task in task_list:
         index += 1
@@ -320,4 +325,4 @@ def calendar():
             events.append(element)
 
     return render_template("calendar.html", current_user=current_user,
-                           group=get_current_group(), events=events, highest_event_id=highest_event_id)
+                           group=current_user.get_current_group(), events=events, highest_event_id=highest_event_id)
